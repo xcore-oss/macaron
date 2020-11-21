@@ -29,7 +29,7 @@ import (
 type ReturnHandler func(*Context, []reflect.Value)
 
 func canDeref(val reflect.Value) bool {
-	return val.Kind() == reflect.Interface || val.Kind() == reflect.Ptr
+	return val.Kind() == reflect.Ptr // val.Kind() == reflect.Interface ||
 }
 
 func isError(val reflect.Value) bool {
@@ -78,6 +78,7 @@ func defaultReturnHandler() ReturnHandler {
 			_, _ = resp.Write([]byte(respVal.String()))
 		} else {
 			ctx.JSON(200, respVal)
+
 		}
 	}
 }
