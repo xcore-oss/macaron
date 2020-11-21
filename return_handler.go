@@ -41,6 +41,10 @@ func isByteSlice(val reflect.Value) bool {
 	return val.Kind() == reflect.Slice && val.Type().Elem().Kind() == reflect.Uint8
 }
 
+func isString(val reflect.Value) bool {
+	return val.Kind() == reflect.String
+}
+
 func defaultReturnHandler() ReturnHandler {
 	return func(ctx *Context, vals []reflect.Value) {
 		rv := ctx.GetVal(inject.InterfaceOf((*http.ResponseWriter)(nil)))
@@ -69,8 +73,11 @@ func defaultReturnHandler() ReturnHandler {
 		}
 		if isByteSlice(respVal) {
 			_, _ = resp.Write(respVal.Bytes())
-		} else {
+		}
+		if isString(respVal) {
 			_, _ = resp.Write([]byte(respVal.String()))
+		} else {
+			ctx.JSON(200, respVal)
 		}
 	}
 }
