@@ -162,7 +162,7 @@ func (r *Router) handle(method, pattern string, handle Handle) *Route {
 	return &Route{r, leaf}
 }
 
-// Handle registers a new request handle with the given pattern, method and handlers.
+// Handle registers a new request handle with the given pattern, method and Handlers.
 func (r *Router) Handle(method string, pattern string, handlers []Handler) *Route {
 	if len(r.groups) > 0 {
 		groupPattern := ""
@@ -181,9 +181,9 @@ func (r *Router) Handle(method string, pattern string, handlers []Handler) *Rout
 	return r.handle(method, pattern, func(resp http.ResponseWriter, req *http.Request, params Params) {
 		c := r.m.createContext(resp, req)
 		c.params = params
-		c.handlers = make([]Handler, 0, len(r.m.handlers)+len(handlers))
-		c.handlers = append(c.handlers, r.m.handlers...)
-		c.handlers = append(c.handlers, handlers...)
+		c.Handlers = make([]Handler, 0, len(r.m.handlers)+len(handlers))
+		c.Handlers = append(c.Handlers, r.m.handlers...)
+		c.Handlers = append(c.Handlers, handlers...)
 		c.run()
 	})
 }
@@ -194,7 +194,7 @@ func (r *Router) Group(pattern string, fn func(), h ...Handler) {
 	r.groups = r.groups[:len(r.groups)-1]
 }
 
-// Get is a shortcut for r.Handle("GET", pattern, handlers)
+// Get is a shortcut for r.Handle("GET", pattern, Handlers)
 func (r *Router) Get(pattern string, h ...Handler) (leaf *Route) {
 	leaf = r.Handle("GET", pattern, h)
 	if r.autoHead {
@@ -203,42 +203,42 @@ func (r *Router) Get(pattern string, h ...Handler) (leaf *Route) {
 	return leaf
 }
 
-// Patch is a shortcut for r.Handle("PATCH", pattern, handlers)
+// Patch is a shortcut for r.Handle("PATCH", pattern, Handlers)
 func (r *Router) Patch(pattern string, h ...Handler) *Route {
 	return r.Handle("PATCH", pattern, h)
 }
 
-// Post is a shortcut for r.Handle("POST", pattern, handlers)
+// Post is a shortcut for r.Handle("POST", pattern, Handlers)
 func (r *Router) Post(pattern string, h ...Handler) *Route {
 	return r.Handle("POST", pattern, h)
 }
 
-// Put is a shortcut for r.Handle("PUT", pattern, handlers)
+// Put is a shortcut for r.Handle("PUT", pattern, Handlers)
 func (r *Router) Put(pattern string, h ...Handler) *Route {
 	return r.Handle("PUT", pattern, h)
 }
 
-// Delete is a shortcut for r.Handle("DELETE", pattern, handlers)
+// Delete is a shortcut for r.Handle("DELETE", pattern, Handlers)
 func (r *Router) Delete(pattern string, h ...Handler) *Route {
 	return r.Handle("DELETE", pattern, h)
 }
 
-// Options is a shortcut for r.Handle("OPTIONS", pattern, handlers)
+// Options is a shortcut for r.Handle("OPTIONS", pattern, Handlers)
 func (r *Router) Options(pattern string, h ...Handler) *Route {
 	return r.Handle("OPTIONS", pattern, h)
 }
 
-// Head is a shortcut for r.Handle("HEAD", pattern, handlers)
+// Head is a shortcut for r.Handle("HEAD", pattern, Handlers)
 func (r *Router) Head(pattern string, h ...Handler) *Route {
 	return r.Handle("HEAD", pattern, h)
 }
 
-// Any is a shortcut for r.Handle("*", pattern, handlers)
+// Any is a shortcut for r.Handle("*", pattern, Handlers)
 func (r *Router) Any(pattern string, h ...Handler) *Route {
 	return r.Handle("*", pattern, h)
 }
 
-// Route is a shortcut for same handlers but different HTTP methods.
+// Route is a shortcut for same Handlers but different HTTP methods.
 //
 // Example:
 // 		m.Route("/", "GET,POST", h)
@@ -261,9 +261,9 @@ func (r *Router) NotFound(handlers ...Handler) {
 	handlers = validateAndWrapHandlers(handlers)
 	r.notFound = func(rw http.ResponseWriter, req *http.Request) {
 		c := r.m.createContext(rw, req)
-		c.handlers = make([]Handler, 0, len(r.m.handlers)+len(handlers))
-		c.handlers = append(c.handlers, r.m.handlers...)
-		c.handlers = append(c.handlers, handlers...)
+		c.Handlers = make([]Handler, 0, len(r.m.handlers)+len(handlers))
+		c.Handlers = append(c.Handlers, r.m.handlers...)
+		c.Handlers = append(c.Handlers, handlers...)
 		c.run()
 	}
 }
@@ -275,7 +275,7 @@ func (r *Router) InternalServerError(handlers ...Handler) {
 	handlers = validateAndWrapHandlers(handlers)
 	r.internalServerError = func(c *Context, err error) {
 		c.index = 0
-		c.handlers = handlers
+		c.Handlers = handlers
 		c.Map(err)
 		c.run()
 	}

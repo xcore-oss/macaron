@@ -211,7 +211,7 @@ func Static(directory string, staticOpt ...StaticOptions) Handler {
 	}
 }
 
-// Statics registers multiple static middleware handlers all at once.
+// Statics registers multiple static middleware Handlers all at once.
 func Statics(opt StaticOptions, dirs ...string) Handler {
 	if len(dirs) == 0 {
 		panic("no static directory is given")

@@ -83,7 +83,7 @@ func validateAndWrapHandler(h Handler) Handler {
 }
 
 // validateAndWrapHandlers preforms validation and wrapping for each input handler.
-// It accepts an optional wrapper function to perform custom wrapping on handlers.
+// It accepts an optional wrapper function to perform custom wrapping on Handlers.
 func validateAndWrapHandlers(handlers []Handler, wrappers ...func(Handler) Handler) []Handler {
 	var wrapper func(Handler) Handler
 	if len(wrappers) > 0 {
@@ -154,8 +154,8 @@ func Classic() *Macaron {
 }
 
 // Handlers sets the entire middleware stack with the given Handlers.
-// This will clear any current middleware handlers,
-// and panics if any of the handlers is not a callable function
+// This will clear any current middleware Handlers,
+// and panics if any of the Handlers is not a callable function
 func (m *Macaron) Handlers(handlers ...Handler) {
 	m.handlers = make([]Handler, 0)
 	for _, handler := range handlers {
@@ -189,7 +189,7 @@ func (m *Macaron) Use(handler Handler) {
 func (m *Macaron) createContext(rw http.ResponseWriter, req *http.Request) *Context {
 	c := &Context{
 		Injector: inject.New(),
-		handlers: m.handlers,
+		Handlers: m.handlers,
 		action:   m.action,
 		index:    0,
 		Router:   m.Router,

@@ -47,7 +47,7 @@ func Test_New(t *testing.T) {
 }
 
 func Test_Macaron_Before(t *testing.T) {
-	Convey("Register before handlers", t, func() {
+	Convey("Register before Handlers", t, func() {
 		m := New()
 		m.Before(func(rw http.ResponseWriter, req *http.Request) bool {
 			return false
@@ -92,7 +92,7 @@ func Test_Macaron_ServeHTTP(t *testing.T) {
 }
 
 func Test_Macaron_Handlers(t *testing.T) {
-	Convey("Add custom handlers", t, func() {
+	Convey("Add custom Handlers", t, func() {
 		result := ""
 		batman := func(c *Context) {
 			result += "batman!"

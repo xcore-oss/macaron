@@ -22,7 +22,7 @@ import (
 )
 
 // ResponseWriter is a wrapper around http.ResponseWriter that provides extra information about
-// the response. It is recommended that middleware handlers use this construct to wrap a responsewriter
+// the response. It is recommended that middleware Handlers use this construct to wrap a responsewriter
 // if the functionality calls for it.
 type ResponseWriter interface {
 	http.ResponseWriter

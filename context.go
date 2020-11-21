@@ -86,7 +86,7 @@ func (invoke ContextInvoker) Invoke(params []interface{}) ([]reflect.Value, erro
 // It is the integration of most frequently used middlewares and helper methods.
 type Context struct {
 	inject.Injector
-	handlers []Handler
+	Handlers []Handler
 	action   Handler
 	index    int
 
@@ -100,10 +100,10 @@ type Context struct {
 }
 
 func (ctx *Context) handler() Handler {
-	if ctx.index < len(ctx.handlers) {
-		return ctx.handlers[ctx.index]
+	if ctx.index < len(ctx.Handlers) {
+		return ctx.Handlers[ctx.index]
 	}
-	if ctx.index == len(ctx.handlers) {
+	if ctx.index == len(ctx.Handlers) {
 		return ctx.action
 	}
 	panic("invalid index for context handler")
@@ -121,7 +121,7 @@ func (ctx *Context) Written() bool {
 }
 
 func (ctx *Context) run() {
-	for ctx.index <= len(ctx.handlers) {
+	for ctx.index <= len(ctx.Handlers) {
 		vals, err := ctx.Invoke(ctx.handler())
 		if err != nil {
 			panic(err)
