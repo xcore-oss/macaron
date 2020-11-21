@@ -77,7 +77,7 @@ func defaultReturnHandler() ReturnHandler {
 		if isString(respVal) {
 			_, _ = resp.Write([]byte(respVal.String()))
 		} else {
-			ctx.JSON(200, respVal)
+			ctx.JSON(200, respVal.Interface())
 
 		}
 	}
