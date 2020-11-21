@@ -1,4 +1,4 @@
-module gopkg.in/macaron.v1
+module github.com/xcore-oss/macaron
 
 go 1.12
 
