@@ -190,7 +190,7 @@ func (m *Macaron) createContext(rw http.ResponseWriter, req *http.Request) *Cont
 	c := &Context{
 		Injector: inject.New(),
 		Handlers: m.handlers,
-		action:   m.action,
+		Action:   m.action,
 		index:    0,
 		Router:   m.Router,
 		Req:      Request{req},

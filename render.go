@@ -95,7 +95,7 @@ type (
 		Extensions []string
 		// Funcs is a slice of FuncMaps to apply to the template upon compilation. This is useful for helper functions. Default is [].
 		Funcs []template.FuncMap
-		// Delims sets the action delimiters to the specified strings in the Delims struct.
+		// Delims sets the Action delimiters to the specified strings in the Delims struct.
 		Delims Delims
 		// Appends the given charset to the Content-Type header. Default is "UTF-8".
 		Charset string

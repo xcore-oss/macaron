@@ -87,7 +87,7 @@ func (invoke ContextInvoker) Invoke(params []interface{}) ([]reflect.Value, erro
 type Context struct {
 	inject.Injector
 	Handlers []Handler
-	action   Handler
+	Action   Handler
 	index    int
 
 	*Router
@@ -104,7 +104,7 @@ func (ctx *Context) handler() Handler {
 		return ctx.Handlers[ctx.index]
 	}
 	if ctx.index == len(ctx.Handlers) {
-		return ctx.action
+		return ctx.Action
 	}
 	panic("invalid index for context handler")
 }
